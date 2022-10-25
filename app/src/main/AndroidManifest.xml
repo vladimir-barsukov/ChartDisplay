@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChartDisplay"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ChartAtivity"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
