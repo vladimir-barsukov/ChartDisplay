@@ -4,5 +4,9 @@
     <string name="count_hint">Введите количество точек</string>
     <string name="btn_go_title">Поехали</string>
 
+    <string name="share_image_title">Поделиться графиком</string>
+    <string name="image_name">ChartImage</string>
+    <string name="btn_save_image_title">Сохранить изображение</string>
+
     <string name="error_empty_input_text">Введите число точек</string>
 </resources>

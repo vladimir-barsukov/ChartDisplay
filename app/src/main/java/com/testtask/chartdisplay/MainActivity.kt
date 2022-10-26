@@ -1,5 +1,6 @@
 package com.testtask.chartdisplay
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 showError(R.string.error_empty_input_text)
             } else {
                 // TODO перейти на экран с графиком
+                startActivity(Intent(this, ChartAtivity::class.java))
             }
         }
     }
