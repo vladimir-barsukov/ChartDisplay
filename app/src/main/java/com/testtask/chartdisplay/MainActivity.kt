@@ -7,7 +7,9 @@ import androidx.core.widget.addTextChangedListener
 import com.testtask.chartdisplay.databinding.ActivityMainBinding
 import com.testtask.chartdisplay.viewmodel.MainViewModel
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
@@ -21,20 +23,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        binding.inputCount.addTextChangedListener { editable ->
-            if (editable.isNullOrEmpty()) {
-                showError(R.string.error_empty_input_text)
-            } else {
-                hideError()
+        with(binding) {
+            inputCount.addTextChangedListener { editable ->
+                if (editable.isNullOrEmpty()) {
+                    showError(R.string.error_empty_input_text)
+                } else {
+                    hideError()
+                }
             }
-        }
 
-        binding.btnGo.setOnClickListener {
-            if (binding.inputCount.text.isNullOrEmpty()) {
-                showError(R.string.error_empty_input_text)
-            } else {
-                // TODO перейти на экран с графиком
-                startActivity(Intent(this, ChartAtivity::class.java))
+            btnGo.setOnClickListener {
+                if (inputCount.text.isNullOrEmpty()) {
+                    showError(R.string.error_empty_input_text)
+                } else {
+                    // TODO перейти на экран с графиком
+                    //startActivity(Intent(this, ChartAtivity::class.java))
+                    inputCount.text?.toString()?.toInt()?.let { it -> viewModel.onGoButtonClicked(it) }
+                }
             }
         }
     }

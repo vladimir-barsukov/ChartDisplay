@@ -1,10 +1,18 @@
 package com.testtask.chart.impl.data.repository
 
-import com.testtask.chart.api.domain.model.Point
+import com.testtask.chart.impl.data.service.ChartWebService
+import com.testtask.chart.impl.domain.converter.PointsConverter
+import com.testtask.chart.impl.domain.model.Point
 import com.testtask.chart.impl.domain.repository.ChartRepository
+import javax.inject.Inject
 
-class ChartRepositoryImpl : ChartRepository {
+class ChartRepositoryImpl @Inject constructor(
+    private val webService: ChartWebService,
+    private val converter: PointsConverter
+) : ChartRepository {
+
     override suspend fun getPoints(count: Int): List<Point> {
-        TODO("Not yet implemented")
+        val points = webService.getPoints(count).points
+        return converter.convertAll(points)
     }
 }

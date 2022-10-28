@@ -1,6 +1,6 @@
 package com.testtask.chart.impl.domain.repository
 
-import com.testtask.chart.api.domain.model.Point
+import com.testtask.chart.impl.domain.model.Point
 
 /**
  * Репозиторий для получения точек для построения данных

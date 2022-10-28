@@ -1,4 +1,4 @@
-package com.testtask.chart.api.domain.model
+package com.testtask.chart.impl.domain.model
 
 /**
  * Модель описывает одну точку на графике с координатами X и Y

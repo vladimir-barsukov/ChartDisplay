@@ -7,7 +7,9 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.testtask.chartdisplay.databinding.ActivityChartBinding
 import com.testtask.chartdisplay.viewmodel.ChartViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChartAtivity : AppCompatActivity() {
     private lateinit var binding: ActivityChartBinding
     private val viewModel: ChartViewModel by viewModels()
