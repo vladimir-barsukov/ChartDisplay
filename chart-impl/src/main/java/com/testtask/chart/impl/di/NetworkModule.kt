@@ -1,5 +1,7 @@
 package com.testtask.chart.impl.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.testtask.chart.impl.data.service.ChartWebService
 import dagger.Module
 import dagger.Provides
@@ -15,10 +17,17 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit =
+    fun provideRetrofit(moshi: Moshi): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://hr-challenge.interactivestandard.com")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi =
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
             .build()
 
     @Singleton

@@ -1,9 +1,13 @@
 package com.testtask.chartdisplay.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.testtask.chart.impl.domain.interactor.ChartInteractor
+import com.testtask.chart.impl.domain.model.Point
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -13,7 +17,17 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val interactor: ChartInteractor) : ViewModel() {
 
+    private val _pointsData = MutableLiveData<List<Point>>()
+    val pointsData: LiveData<List<Point>> = _pointsData
+
     fun onGoButtonClicked(count: Int) {
-        viewModelScope.launch { interactor.getPoints(count) }
+        viewModelScope.launch(Dispatchers.IO) {
+            val points = try {
+                interactor.getPoints(count)
+            } catch (e: Exception) {
+                emptyList()
+            }
+            _pointsData.postValue(points)
+        }
     }
 }

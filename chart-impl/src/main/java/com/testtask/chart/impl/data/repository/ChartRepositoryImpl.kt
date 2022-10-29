@@ -13,6 +13,6 @@ class ChartRepositoryImpl @Inject constructor(
 
     override suspend fun getPoints(count: Int): List<Point> {
         val points = webService.getPoints(count).points
-        return converter.convertAll(points)
+        return points?.let { converter.convertAll(points) } ?: emptyList()
     }
 }
