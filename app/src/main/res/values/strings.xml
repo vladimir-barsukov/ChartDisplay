@@ -3,6 +3,8 @@
     <string name="init_title">В поле ввода необходимо ввести количество точек для построения графика</string>
     <string name="count_hint">Введите количество точек</string>
     <string name="btn_go_title">Поехали</string>
+    <string name="btn_go_loading_title">Загрузка…</string>
+    <string name="chart_title">Количество точек: %d</string>
 
     <string name="share_image_title">Поделиться графиком</string>
     <string name="image_name">ChartImage</string>

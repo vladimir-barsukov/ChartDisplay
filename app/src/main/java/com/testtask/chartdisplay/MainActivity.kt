@@ -1,17 +1,18 @@
 package com.testtask.chartdisplay
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.snackbar.Snackbar
 import com.testtask.chartdisplay.databinding.ActivityMainBinding
 import com.testtask.chartdisplay.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
@@ -26,11 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObservers() {
         viewModel.pointsData.observe(this) { points ->
+            hideLoading()
+
             if (points.isEmpty()) {
                 showErrorMessage()
             } else {
-                // TODO открыть экран с графиком
-                //startActivity(Intent(this, ChartAtivity::class.java))
+                startActivity(Intent(this, ChartActivity::class.java))
             }
         }
     }
@@ -49,10 +51,23 @@ class MainActivity : AppCompatActivity() {
                 if (inputCount.text.isNullOrEmpty()) {
                     showInputError(R.string.error_empty_input_text)
                 } else {
-                    inputCount.text?.toString()?.toInt()?.let { viewModel.onGoButtonClicked(it) }
+                    inputCount.text?.toString()?.toInt()?.let {
+                        showLoading()
+                        viewModel.onGoButtonClicked(it)
+                    }
                 }
             }
         }
+    }
+
+    private fun showLoading() {
+        binding.btnGo.isEnabled = false
+        binding.btnGo.setText(R.string.btn_go_loading_title)
+    }
+
+    private fun hideLoading() {
+        binding.btnGo.isEnabled = true
+        binding.btnGo.setText(R.string.btn_go_title)
     }
 
     private fun showErrorMessage() {
