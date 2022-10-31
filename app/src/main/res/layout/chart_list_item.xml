@@ -8,7 +8,8 @@
     <TextView
         android:id="@+id/x"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_size"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toStartOf="@+id/y"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +19,8 @@
     <TextView
         android:id="@+id/y"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_size"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/x"

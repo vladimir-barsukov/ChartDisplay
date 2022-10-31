@@ -1,9 +1,12 @@
 package com.testtask.chartdisplay
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.testtask.chartdisplay.databinding.ActivityChartBinding
@@ -28,12 +31,18 @@ class ChartActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        binding.btnSaveImage.setOnClickListener {
-            binding.graph.takeSnapshotAndShare(
-                this,
-                getString(R.string.image_name),
-                getString(R.string.share_image_title)
-            )
+        with(binding) {
+            pointList.layoutManager = LinearLayoutManager(this@ChartActivity)
+            val itemDecoration = DividerItemDecoration(this@ChartActivity, LinearLayout.VERTICAL)
+            pointList.addItemDecoration(itemDecoration)
+
+            btnSaveImage.setOnClickListener {
+                graph.takeSnapshotAndShare(
+                    this@ChartActivity,
+                    getString(R.string.image_name),
+                    getString(R.string.share_image_title)
+                )
+            }
         }
     }
 
@@ -45,7 +54,6 @@ class ChartActivity : AppCompatActivity() {
             with(binding) {
                 graph.addSeries(lines)
                 title.text = getString(R.string.chart_title, dataPoints.size)
-                pointList.layoutManager = LinearLayoutManager(this@ChartActivity)
                 pointList.adapter = PointListAdapter(points)
             }
         }
